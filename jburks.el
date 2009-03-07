@@ -144,10 +144,13 @@
 
 ;; Activate theme
 
-;;(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
+(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 ;;(color-theme-twilight)
 
-(color-theme-dark-laptop)
+(load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
+(color-theme-vibrant-ink)
+
+;;(color-theme-dark-laptop)
 
 
 
