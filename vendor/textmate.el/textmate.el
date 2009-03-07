@@ -23,7 +23,7 @@
 ;;    ⌘L - Go to Line
 ;;    ⌘/ - Comment Line (or Selection/Region)
 ;;    ⌘] - Shift Right (currently indents region)
-;;    ⌘[ - Shift Left  (not yet implemented)
+;;    ⌘[ - shift left  (not yet implemented)
 ;;  ⌥⌘] - Align Assignments
 ;;  ⌥⌘[ - Indent Line
 ;;  ⌘RET - Insert Newline at Line's End
@@ -74,7 +74,7 @@
 (defvar *textmate-project-root* nil)
 (defvar *textmate-project-files* '())
 (defvar *textmate-gf-exclude*
-  "/\\.|vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle|Classes|UnitTesting")
+  "/\\.|vendor|fixtures|tmp|log|out|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle|Classes|UnitTesting")
 
 ;;; Bindings
 
