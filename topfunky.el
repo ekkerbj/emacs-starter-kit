@@ -47,8 +47,13 @@
 ;; TODO javascript-indent-level 2
 
 ;; Rinari
-;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
-;; (require 'rinari)
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
+(require 'rinari)
+(define-key rinari-minor-mode-map [(control meta shift down)] 'rinari-find-rspec)
+(define-key rinari-minor-mode-map [(control meta shift left)] 'rinari-find-controller)
+(define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
+(define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
 
 (autoload 'applescript-mode "applescript-mode" "major mode for editing AppleScript source." t)
 (setq auto-mode-alist
@@ -309,7 +314,7 @@
      (font-lock-keyword-face ((t (:foreground "#888"))))
      (font-lock-preprocessor-face ((t (:foreground "#6688ee"))))
      (font-lock-reference-face ((t (:foreground "#c2cff1"))))
-     (font-lock-string-face ((t (:italic t :foreground "#ffffcc" :slant italic))))
+     (font-lock-string-face ((t (:foreground "#ffffcc"))))
      (font-lock-type-face ((t (:bold t :foreground "#c2cff1" :weight bold))))
      (font-lock-variable-name-face ((t (:italic t :bold t :foreground "#f3f3f3" :slant italic :weight bold))))
      (font-lock-warning-face ((t (:bold t :foreground "IndianRed" :weight bold))))
