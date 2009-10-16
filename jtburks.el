@@ -72,11 +72,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
-;;(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-mode"))
-;;(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
-;;(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-;;(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
-
 ;; Font
 ;;(set-default-font "-apple-consolas-medium-r-normal--0-0-0-0-m-0-iso10646-1")
 
