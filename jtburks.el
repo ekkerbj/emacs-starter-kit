@@ -72,6 +72,14 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
+;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
+(autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
+(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/groovy-mode.el"))
+(require 'groovy-mode)
+
 ;; Font
 ;;(set-default-font "-apple-consolas-medium-r-normal--0-0-0-0-m-0-iso10646-1")
 
