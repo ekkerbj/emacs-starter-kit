@@ -122,7 +122,7 @@
   "*Indentation can insert tabs in groovy mode if this is non-nil."
   :type 'boolean :group 'groovy)
 
-(defcustom groovy-indent-level 4
+(defcustom groovy-indent-level 2
   "*Indentation of groovy statements."
   :type 'integer :group 'groovy)
 
