@@ -31,19 +31,32 @@
 (yas/initialize)
 (yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
 
-
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/treetop-mode"))
 (require 'treetop-mode)
-
 
 ;; Commands
 (require 'unbound)
 
 ;; Minor Modes
+
+;;mode-compile
+(autoload 'mode-compile "mode-compile"
+  "Command to compile current buffer file based on the major mode" t)
+(global-set-key "\C-cc" 'mode-compile)
+(autoload 'mode-compile-kill "mode-compile"
+  "Command to kill a compilation launched by `mode-compile'" t)
+(global-set-key "\C-ck" 'mode-compile-kill)
+
+;; textmate
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
 (textmate-mode)
+
 (require 'whitespace)
+
+;; rspec
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
+(require 'rspec-mode)
 
 ;; Major Modes
 
@@ -142,4 +155,3 @@
 (load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
 
 (color-theme-vibrant-ink)
-
