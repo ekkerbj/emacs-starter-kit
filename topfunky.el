@@ -26,6 +26,26 @@
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
+(setq default-tab-width 2)
+(setq tab-width 2)
+
+;; Clojure
+;;(eval-after-load 'clojure-mode '(clojure-slime-config))
+
+;; Plain Text
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of
+;;; fill-paragraph. Takes a multi-line paragraph and makes
+;;; it into a single line of text.
+(defun unfill-paragraph ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(defun refresh-file ()
+  (interactive)
+  (revert-buffer t t t))
+(global-set-key [f5] 'refresh-file)
+
 ;; Snippets
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
 (require 'yasnippet)
@@ -46,20 +66,64 @@
 ;; Javascript
 ;; TODO javascript-indent-level 2
 
+;; Remove scrollbars and make hippie expand
+;; work nicely with yasnippet
+(scroll-bar-mode -1)
+(require 'hippie-exp)
+(setq hippie-expand-try-functions-list
+      '(yas/hippie-try-expand
+        try-expand-dabbrev
+        try-expand-dabbrev-visible
+        try-expand-dabbrev-all-buffers
+        ;;        try-expand-dabbrev-from-kill
+        ;;         try-complete-file-name
+        ;;         try-complete-file-name-partially
+        ;;         try-complete-lisp-symbol
+        ;;         try-complete-lisp-symbol-partially
+        ;;         try-expand-line
+        ;;         try-expand-line-all-buffers
+        ;;         try-expand-list
+        ;;         try-expand-list-all-buffers
+        ;;        try-expand-whole-kill
+        ))
+
+(defun indent-or-complete ()
+  (interactive)
+  (if (and (looking-at "$") (not (looking-back "^\\s-*")))
+      (hippie-expand nil)
+    (indent-for-tab-command)))
+(add-hook 'find-file-hooks (function (lambda ()
+                                       (local-set-key (kbd "TAB") 'indent-or-complete))))
+
+;; dabbrev-case-fold-search for case-sensitive search
+
 ;; Rinari
-;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
-;; (require 'rinari)
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
+(require 'rinari)
+(define-key rinari-minor-mode-map [(control meta shift down)] 'rinari-find-rspec)
+(define-key rinari-minor-mode-map [(control meta shift left)] 'rinari-find-controller)
+(define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
+(define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
+
+(defun rake-generate-html ()
+  (interactive)
+  (rake "generate_html"))
+(global-set-key [(meta shift r)] 'rake-generate-html)
+
 
 (autoload 'applescript-mode "applescript-mode" "major mode for editing AppleScript source." t)
 (setq auto-mode-alist
       (cons '("\\.applescript$" . applescript-mode) auto-mode-alist))
 
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
 
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
@@ -75,6 +139,12 @@
 
 ;; XCODE
 (require 'objc-c-mode)
+
+;; (setq c-default-style "bsd"
+;;       c-basic-offset 2)
+
+(require 'cc-menus)
+
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
 (define-key objc-mode-map [(meta K)] 'xcode-clean)
@@ -88,6 +158,11 @@
             (local-set-key (kbd "C-c <up>")    'hs-hide-all)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
             (hs-minor-mode t)))         ; Hide and show blocks
+(add-to-list 'auto-mode-alist '("\\.h\\'" . objc-mode))
+(require 'objj-mode)
+
+;; Mercurial
+;;(require 'mercurial)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
@@ -309,7 +384,7 @@
      (font-lock-keyword-face ((t (:foreground "#888"))))
      (font-lock-preprocessor-face ((t (:foreground "#6688ee"))))
      (font-lock-reference-face ((t (:foreground "#c2cff1"))))
-     (font-lock-string-face ((t (:italic t :foreground "#ffffcc" :slant italic))))
+     (font-lock-string-face ((t (:foreground "#ffffcc"))))
      (font-lock-type-face ((t (:bold t :foreground "#c2cff1" :weight bold))))
      (font-lock-variable-name-face ((t (:italic t :bold t :foreground "#f3f3f3" :slant italic :weight bold))))
      (font-lock-warning-face ((t (:bold t :foreground "IndianRed" :weight bold))))
@@ -419,8 +494,8 @@
      (ruler-mode-tab-stop-face ((t (:box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "Inconsolata" :foreground "steelblue"))))
      (scroll-bar ((t (nil))))
      (secondary-selection ((t (:background "Aquamarine" :foreground "SlateBlue"))))
-     (show-paren-match-face ((t (:bold t :background "#333333" :foreground "White" :weight bold))))
-     (show-paren-mismatch-face ((t (:foreground "Red"))))
+     (show-paren-match-face ((t (:bold t :foreground "#ffffbb" :background "black" :weight bold))))
+     (show-paren-mismatch-face ((t (:foreground "Red" :background "black"))))
      (swbuff-current-buffer-face ((t (:bold t :foreground "red" :weight bold))))
      (text-cursor ((t (:background "Red" :foreground "white"))))
      (tool-bar ((t (:background "grey75" :foreground "black" :box (:line-width 1 :style released-button)))))
@@ -447,3 +522,4 @@
 
 ;; Activate theme
 (color-theme-helvetica)
+;; (color-theme-emacs-21)
