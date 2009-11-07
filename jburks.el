@@ -62,6 +62,10 @@
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 
+;; rspec
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
+(require 'rspec-mode)
+
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 (define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)
