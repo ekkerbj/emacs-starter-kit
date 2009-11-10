@@ -61,7 +61,9 @@
 ;; Major Modes
 
 ;; Javascript
-;; TODO javascript-indent-level 2
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 
 ;; Rinari
 ;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
@@ -95,7 +97,7 @@
 
 ;; Font
 ;;(set-default-font "-apple-consolas-medium-r-normal--0-0-0-0-m-0-iso10646-1")
-(set-default-font "-microsoft-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+(set-default-font "-microsoft-Consolas-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 
 ;; Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
