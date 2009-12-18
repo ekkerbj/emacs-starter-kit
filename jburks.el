@@ -50,6 +50,9 @@
 
 ;; Javascript
 ;; TODO javascript-indent-level 2
+;; Javascript
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; Rinari
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
