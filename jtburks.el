@@ -97,9 +97,17 @@
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
-
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/groovy-mode.el"))
 (require 'groovy-mode)
+
+(autoload 'vtl-mode "vtl" "Velocity editing mode." t)
+(add-hook 'html-mode-hook 'vtl-mode t t)
+(add-hook 'xml-mode-hook 'vtl-mode t t)
+(add-hook 'text-mode-hook 'vtl-mode t t)
+(add-to-list 'auto-mode-alist '("\.vm$" . vtl-mode))
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/vtl.el"))
+(require 'vtl)
+
 
 ;; Font
 ;;(set-default-font "-apple-consolas-medium-r-normal--0-0-0-0-m-0-iso10646-1")
@@ -160,7 +168,7 @@
 (desktop-save-mode 1)
 
 ;; Activate theme
-(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
+;; (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 (load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
 
 (color-theme-vibrant-ink)
