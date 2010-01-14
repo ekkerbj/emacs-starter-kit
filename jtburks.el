@@ -97,6 +97,8 @@
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
 ;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
