@@ -31,9 +31,6 @@
 (yas/initialize)
 (yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
 
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/treetop-mode"))
-(require 'treetop-mode)
-
 ;; Commands
 (require 'unbound)
 
@@ -58,10 +55,12 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
 (require 'rspec-mode)
 
-;; cucumber
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/cucumber.el"))
-(require 'feature-mode)
-(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+;; Velocity
+(add-to-list 'auto-mode-alist '("\.vm$" . html-mode))
+(autoload 'turn-on-vtl-mode "vtl" nil t)
+(add-hook 'html-mode-hook 'turn-on-vtl-mode)
+;;(add-hook 'xml-mode-hook 'turn-on-vtl-mode t t)
+;;(add-hook 'text-mode-hook 'turn-on-vtl-mode t t)
 
 
 ;; Major Modes
@@ -70,10 +69,18 @@
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+;; TreeTop
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/treetop-mode"))
+(require 'treetop-mode)
+
+;; cucumber
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/cucumber.el"))
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 
 ;; Rinari
-;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
-;; (require 'rinari)
+;;(add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
+;;(require 'rinari)
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
@@ -87,17 +94,17 @@
 (define-key haml-mode-map [(control meta up)] 'haml-backward-sexp)
 (define-key haml-mode-map [(control meta left)] 'haml-up-list)
 (define-key haml-mode-map [(control meta right)] 'haml-down-list)
-
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
 ;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
-
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/groovy-mode.el"))
 (require 'groovy-mode)
 
@@ -160,7 +167,6 @@
 (desktop-save-mode 1)
 
 ;; Activate theme
-(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
+;; (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 (load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
-
 (color-theme-vibrant-ink)
