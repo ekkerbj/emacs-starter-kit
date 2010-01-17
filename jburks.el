@@ -156,7 +156,6 @@
 (desktop-save-mode 1)
 
 ;; Activate theme
-
 (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 ;;(color-theme-twilight)
 
@@ -165,5 +164,4 @@
 
 ;;(color-theme-dark-laptop)
 
-
-
+(setq  explicit-shell-file-name "/bin/zsh")

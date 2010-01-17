@@ -170,3 +170,5 @@
 ;; (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 (load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
 (color-theme-vibrant-ink)
+
+(setq  explicit-shell-file-name "/bin/zsh")
