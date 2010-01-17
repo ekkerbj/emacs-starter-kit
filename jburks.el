@@ -31,12 +31,6 @@
 (yas/initialize)
 (yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
 
-;; Cucumber
-;;(add-to-list 'load-path (concat dotfiles-dir "/vendor/cucumber.el"))
-;;(require 'cucumber-mode)
-;;(autoload 'cucumber-mode "cucumber-mode" "Mode for editing cucumber files" t)
-;;(add-to-list 'feature-mode '("\.feature$" . cucumber-mode))
-
 ;; Commands
 (require 'unbound)
 
