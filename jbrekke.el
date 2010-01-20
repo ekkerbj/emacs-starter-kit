@@ -206,6 +206,9 @@
 
 ;; Activate theme
 ;;(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
+<<<<<<< HEAD:jbrekke.el
 ;;(color-theme-twilight)
+=======
+>>>>>>> cd5c0cc23eb94d3a9727b5b0864b42be41389830:jbrekke.el
 (load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
 (color-theme-vibrant-ink)
