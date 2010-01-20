@@ -66,8 +66,8 @@
 ;; Major Modes
 
 ;; Javascript
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . espresso-mode))
+(autoload 'espresso-mode "espresso" nil t)
 
 ;; TreeTop
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/treetop-mode"))
@@ -180,3 +180,116 @@
 (define-key ctl-x-map "S" 'save-current-configuration)
 (define-key ctl-x-map "R" 'resume)
 (define-key ctl-x-map "K" 'wipe)
+
+(add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
+
+;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
+(autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
+(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/groovy-mode.el"))
+(require 'groovy-mode)
+
+;; Font
+;;(set-default-font "-apple-consolas-medium-r-normal--0-0-0-0-m-0-iso10646-1")
+(set-default-font "-microsoft-Consolas-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+
+;; Color Themes
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
+(require 'color-theme)
+(color-theme-initialize)
+
+(require 'line-num)
+
+;; Full screen toggle
+;;(defun toggle-fullscreen ()
+;;  (interactive)
+;; (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+;;                                          nil
+;;                                        'fullboth)))
+;;global-set-key (kbd "M-n") 'toggle-fullscreen)
+
+
+;; Keyboard
+
+;; Split Windows
+(global-set-key [f6] 'split-window-horizontally)
+(global-set-key [f7] 'split-window-vertically)
+(global-set-key [f8] 'delete-window)
+
+;; Some Mac-friendly key counterparts
+(global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-z") 'undo)
+
+;; Keyboard Overrides
+
+(define-key textile-mode-map (kbd "M-s") 'save-buffer)
+(define-key text-mode-map (kbd "M-s") 'save-buffer)
+
+(global-set-key [(meta up)] 'beginning-of-buffer)
+(global-set-key [(meta down)] 'end-of-buffer)
+
+(global-set-key [(meta shift right)] 'ido-switch-buffer)
+(global-set-key [(meta shift up)] 'recentf-ido-find-file)
+(global-set-key [(meta shift down)] 'ido-find-file)
+(global-set-key [(meta shift left)] 'magit-status)
+
+(global-set-key [(meta H)] 'delete-other-windows)
+
+(global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
+
+(global-set-key [(meta N)] 'cleanup-buffer)
+
+(global-set-key [(control \])] 'indent-rigidly)
+
+;; Other
+(prefer-coding-system 'utf-8)
+
+;; save the session on exit
+(desktop-save-mode 1)
+
+;; Activate theme
+;; (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
+(load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
+(color-theme-vibrant-ink)
+
+;; zsh
+(setq  explicit-shell-file-name "/bin/zsh")
+
+;; revive
+(autoload 'save-current-configuration "revive" "Save status" t)
+(autoload 'resume "revive" "Resume Emacs" t)
+(autoload 'wipe "revive" "Wipe Emacs" t)
+
+(define-key ctl-x-map "S" 'save-current-configuration)
+(define-key ctl-x-map "R" 'resume)
+(define-key ctl-x-map "K" 'wipe)
+
+;; close all buffers
+(defun close-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+(require 'server)
+; Based on code from:
+;
+; http://github.com/stsquad/my-emacs-stuff/blob/af57d1707881b23f05bb89dc926dc8a2b08addb3/my-emacs-server.el
+;
+(defun is-server-running ()
+  "Check is an emacs-server process is already running"
+  (let ((socket-path (concat server-socket-dir "/server")))
+    (file-exists-p socket-path)))
+
+(defun my-server-kill-emacs-hook ()
+  "Clean up server files when we exit"
+  (if (is-server-running)
+      (call-process "/bin/rm" nil nil nil (concat server-socket-dir "/server"))))
+
+(add-hook 'kill-emacs-hook
+          (lambda ()
+            (my-server-kill-emacs-hook)))
+
+(unless (is-server-running)
+  (server-start))
+

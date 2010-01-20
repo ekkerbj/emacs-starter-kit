@@ -43,10 +43,8 @@
 ;; Major Modes
 
 ;; Javascript
-;; TODO javascript-indent-level 2
-;; Javascript
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . espresso-mode))
+(autoload 'espresso-mode "espresso" nil t)
 
 ;; Rinari
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
