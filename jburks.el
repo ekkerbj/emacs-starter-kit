@@ -45,6 +45,7 @@
 ;; Javascript
 (add-to-list 'auto-mode-alist '("\\.js\\'" . espresso-mode))
 (autoload 'espresso-mode "espresso" nil t)
+(setq espresso-indent-level 2)
 
 ;; Rinari
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
