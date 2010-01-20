@@ -38,13 +38,13 @@
      (paren-face-match-light ((t (:background "#222222")))) 
      (highlight ((t (:background "#222222")))) 
      (italic ((t (:italic t)))) 
-     (modeline ((t (:background "#444444" :foreground "black")))) 
-     (modeline-buffer-id ((t (:background "#444444" :foreground 
+     (modeline ((t (:background "gray" :foreground "black")))) 
+     (modeline-buffer-id ((t (:background "gray" :foreground 
 "black")))) 
-     (modeline-mousable ((t (:background "#444444" :foreground 
+     (modeline-mousable ((t (:background "gray" :foreground 
 "black")))) 
      (modeline-mousable-minor-mode ((t (:background 
-"#444444" :foreground "black")))) 
+"gray" :foreground "black")))) 
      (region ((t (:background "#555577")))) 
      (primary-selection ((t (:background "#555577")))) 
      (isearch ((t (:background "#555555")))) 
