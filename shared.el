@@ -8,6 +8,8 @@
 
 (require 'line-num)
 
+(server-start)
+
 ;; save the session on exit
 (desktop-save-mode 1)
 
@@ -134,4 +136,3 @@
 (global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
 (global-set-key [(meta N)] 'cleanup-buffer)
 (global-set-key [(control \])] 'indent-rigidly)
-
