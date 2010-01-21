@@ -11,6 +11,9 @@
 ;; save the session on exit
 (desktop-save-mode 1)
 
+;; allow files to be opened via emacsclient
+(server-start)
+
 ;; revive
 (autoload 'save-current-configuration "revive" "Save status" t)
 (autoload 'resume "revive" "Resume Emacs" t)
