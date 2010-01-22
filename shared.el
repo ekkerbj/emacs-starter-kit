@@ -13,6 +13,9 @@
 ;; save the session on exit
 (desktop-save-mode 1)
 
+;; allow files to be opened via emacsclient
+(server-start)
+
 ;; revive
 (autoload 'save-current-configuration "revive" "Save status" t)
 (autoload 'resume "revive" "Resume Emacs" t)
@@ -75,9 +78,9 @@
 
 ;; Major Modes
 ;; Javascript
-(add-to-list 'auto-mode-alist '("\\.js\\'" . espresso-mode))
 (autoload 'espresso-mode "espresso" nil t)
 (setq espresso-indent-level 2)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . espresso-mode))
 
 ;; Rinari
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
