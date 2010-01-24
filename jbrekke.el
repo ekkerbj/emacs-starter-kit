@@ -189,7 +189,7 @@
 (prefer-coding-system 'utf-8)
 
 ;; Maven Section
-;;(require 'compile)
+(require 'compile)
 (setq compile-command "mvn clean install")
 (add-to-list
   'compilation-error-regexp-alist-alist
@@ -200,12 +200,27 @@
    '(mvn-warning "^\\[WARNING\\] \\(/.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3 1 1))
 (add-to-list 'compilation-error-regexp-alist 'mvn-warning)
 
+;; Java Section
+(defun apache-jakarta-mode ()
+  "The Java mode specialization for Apache Jakarta projects."
+  (if (not (assoc "apache-jakarta" c-style-alist))
+      ;; Define the Apache Jakarta cc-mode style.
+      (c-add-style "apache-jakarta" '("java" (indent-tabs-mode . nil))))
+
+  (c-set-style "apache-jakarta")
+  (c-set-offset 'substatement-open 0 nil)
+  (setq mode-name "Apache Jakarta")
+  (define-key c-mode-base-map "\C-m" 'newline-and-indent)
+  (message "newline-indent function executed"))
+
+(add-hook 'java-mode-hook 'apache-jakarta-mode)
+(load-library "junit")
 
 ;; save the session on exit
-(desktop-save-mode 1)
+(desktop-save-mode 0)
 
 ;; Activate theme
 ;;(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 ;;(color-theme-twilight)
-(load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
-(color-theme-vibrant-ink)
+;;(load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
+;;color-theme-vibrant-ink)
