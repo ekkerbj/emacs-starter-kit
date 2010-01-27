@@ -222,5 +222,5 @@
 ;; Activate theme
 ;;(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 ;;(color-theme-twilight)
-;;(load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
-;;color-theme-vibrant-ink)
+(load-file "~/.emacs.d/vendor/color-theme-vibrant-ink.el")
+(color-theme-vibrant-ink)
