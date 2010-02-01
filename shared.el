@@ -84,6 +84,9 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
+;; Treetop
+(require 'treetop-mode)
+(add-to-list 'auto-mode-alist '("\\.treetop$" . treetop-mode))
 
 ;; Rinari
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
