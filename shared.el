@@ -74,6 +74,10 @@
 (textmate-mode)
 (require 'whitespace)
 
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/zencoding"))
+(require 'zencoding-mode)
+(add-hook 'sgml-mode-hook 'zencoding-mode) ;; Auto-start on any markup modes
+
 ;; Major Modes
 ;; Javascript
 (autoload 'espresso-mode "espresso" nil t)
