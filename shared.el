@@ -69,10 +69,10 @@
 (require 'unbound)
 
 ;; Minor Modes
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
-(require 'textmate)
-(textmate-mode)
-(require 'whitespace)
+;;(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
+;;(require 'textmate)
+;;(textmate-mode)
+;;(require 'whitespace)
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/zencoding"))
 (require 'zencoding-mode)
