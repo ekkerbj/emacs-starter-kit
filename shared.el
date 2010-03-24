@@ -8,6 +8,8 @@
 
 (require 'line-num)
 
+(server-start)
+
 ;; save the session on exit
 (desktop-save-mode 1)
 
@@ -127,6 +129,7 @@
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
 
+(add-to-list 'auto-mode-alist '("\\.radius\\'" . html-mode))
 
 ;; Keyboard
 
@@ -149,4 +152,3 @@
 (global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
 (global-set-key [(meta N)] 'cleanup-buffer)
 (global-set-key [(control \])] 'indent-rigidly)
-
