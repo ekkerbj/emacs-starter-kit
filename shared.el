@@ -14,7 +14,7 @@
 (desktop-save-mode 1)
 
 ;; allow files to be opened via emacsclient
-(server-start)
+;;(server-start)
 
 ;; revive
 (autoload 'save-current-configuration "revive" "Save status" t)
@@ -33,7 +33,7 @@
 ;; Activate theme
 (load-file (concat dotfiles-dir "/vendor/color-theme-twilight.el"))
 (load-file (concat dotfiles-dir "/vendor/color-theme-vibrant-ink.el"))
-(color-theme-vibrant-ink)
+;;(color-theme-vibrant-ink)
 ;;(color-theme-twilight)
 ;;(color-theme-dark-laptop)
 
