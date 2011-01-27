@@ -55,7 +55,7 @@
 (setq compile-command "mvn clean install")
 (add-to-list
   'compilation-error-regexp-alist-alist
-   '(mvn "\\(^/.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3 2 1))
+   '(mvn "^\\[ERROR\\] \\(/.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3 2 1))
 (add-to-list 'compilation-error-regexp-alist 'mvn)
 (add-to-list
   'compilation-error-regexp-alist-alist
