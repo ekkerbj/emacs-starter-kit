@@ -124,7 +124,4 @@
 (load (concat dotfiles-dir "topfunky/theme.el"))
 (color-theme-topfunky)
 
-
 (require 'autotest)
-
-
