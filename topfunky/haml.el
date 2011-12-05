@@ -9,7 +9,11 @@
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
-;; Revert annoying indent behavior of DEL in Sass.
+(require 'scss-mode)
+(add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+
+;; Revert annoying indent behavior of DEL.
+(add-hook 'haml-mode-hook (lambda () (define-key haml-mode-map (kbd "<backspace>") 'delete-backward-char)))
 (add-hook 'sass-mode-hook (lambda () (define-key sass-mode-map (kbd "<backspace>") 'delete-backward-char)))
 
 (provide 'topfunky/haml)
