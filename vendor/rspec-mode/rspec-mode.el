@@ -1,31 +1,6 @@
-;;; rspec-mode.el --- Enhance ruby-mode for RSpec
-
-;; Copyright (C) 2008 Peter Williams <http://pezra.barelyenough.org>
-;; Authors: Peter Williams, Tim Harper
-;; URL: http://github.com/pezra/rspec-mode
-;; Created: 2008
-;; Version: 0.2
-;; Keywords: rspec ruby
-;; Package-Requires: ((ruby-mode "1.1"))
-
-;;; Commentary:
 ;;
-;; This file is NOT part of GNU Emacs.
-;;
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-;;
-;; See <http://www.gnu.org/licenses/> for a copy of the GNU General
-;; Public License.
-
-;;; Documentation:
+;; RSpec (minor) mode
+;; ==================
 ;;
 ;; This minor mode provides some enhancements to ruby-mode in
 ;; the contexts of RSpec specifications.  Namely, it provides the
@@ -52,6 +27,8 @@
 ;;
 ;;  * run "spec" rake task for project (bound to `\C-c ,a`)
 ;;
+
+;;
 ;; Dependencies
 ;; ------------
 ;;
@@ -59,12 +36,22 @@
 ;; `on el-expectataions.el`.
 ;; 
 
-;;; Change Log:
-;; 0.2 - Tim Harper implemented support for imenu to generate a basic
-;;       tag outline
-;; 0.1 - Pezra's version in master
+;;
+;; (c) 2008 Peter Williams <http://pezra.barelyenough.org>
+;;
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; See <http://www.gnu.org/licenses/> for a copy of the GNU General
+;; Public License.
 
-;;; Code:
 (require 'ruby-mode)
 
 (defconst rspec-mode-abbrev-table (make-abbrev-table))
@@ -77,25 +64,10 @@
 (define-key rspec-mode-keymap (kbd "C-c ,d") 'rspec-toggle-example-pendingness)
 (define-key rspec-mode-keymap (kbd "C-c ,t") 'rspec-toggle-spec-and-target)
 
-;;;###autoload
 (define-minor-mode rspec-mode
   "Minor mode for rSpec files"
   :lighter " rSpec"
   :keymap  rspec-mode-keymap)
-
-
-(defvar rspec-imenu-generic-expression
-  '(("Examples"  "^\\( *\\(it\\|describe\\|context\\) +.+\\)"          1))
-  "The imenu regex to parse an outline of the rspec file")
-
-(defun rspec-set-imenu-generic-expression ()
-  (make-local-variable 'imenu-generic-expression)
-  (make-local-variable 'imenu-create-index-function)
-  (setq imenu-create-index-function 'imenu-default-create-index-function)
-  (setq imenu-generic-expression rspec-imenu-generic-expression)
-  (message (format "imenu-generic-expression is %s" imenu-generic-expression)))
-
-(add-hook 'rspec-mode-hook 'rspec-set-imenu-generic-expression)
 
 ;; Snippets
 (if (require 'snippet nil t)
@@ -243,7 +215,6 @@
   "Returns true if the specified file is a spec"
   (string-match "\\(_\\|-\\)spec\\.rb$" a-file-name))
 
-;;;###autoload
 (defun rspec-buffer-is-spec-p ()
   "Returns true if the current buffer is a spec"
   (and (buffer-file-name)
@@ -264,13 +235,13 @@
 (defun rspec-run (&rest opts)
   "Runs spec with the specified options"
   (rspec-register-verify-redo (cons 'rspec-run opts))
-  (compile (concat "rake spec SPEC_OPTS=\'" (mapconcat (lambda (x) x) opts " ") "\'"))
+  (compile (concat "rake spec SPEC_OPTS=\'" (mapconcat (lambda (x) x) opts " ") "\'") t)
   (end-of-buffer-other-window 0))
 
 (defun rspec-run-single-file (spec-file &rest opts)
   "Runs spec with the specified options"
   (rspec-register-verify-redo (cons 'rspec-run-single-file (cons spec-file opts)))
-  (compile (concat "rake spec SPEC=\'" spec-file "\' SPEC_OPTS=\'" (mapconcat (lambda (x) x) opts " ") "\'"))
+  (compile (concat "rake spec SPEC=\'" spec-file "\' SPEC_OPTS=\'" (mapconcat (lambda (x) x) opts " ") "\'") t)
   (end-of-buffer-other-window 0))
 
 (defun rspec-project-root (&optional directory)
@@ -281,30 +252,25 @@
           (t (rspec-project-root (file-name-directory (directory-file-name directory)))))))
 
 ;; Makes sure that rSpec buffers are given the rspec minor mode by default
-;;;###autoload
-(eval-after-load 'ruby-mode
-  '(add-hook 'ruby-mode-hook
-             (lambda ()
-               (when (rspec-buffer-is-spec-p)
-                 (rspec-mode)))))
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (when (rspec-buffer-is-spec-p)
+              (rspec-mode))))
 
 ;; Add verify related spec keybinding to ruby ruby modes
-;;;###autoload
-(eval-after-load 'ruby-mode
-  '(add-hook 'ruby-mode-hook
-             (lambda ()
-               (local-set-key (kbd "C-c ,v") 'rspec-verify)
-               (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
-               (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target))))
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c ,v") 'rspec-verify)
+            (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
+            (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target)))
 
 ;; Add verify related spec keybinding to ruby ruby modes
-;;;###autoload
-(eval-after-load 'rails
-  '(add-hook 'rails-minor-mode-hook
-             (lambda ()
-               (local-set-key (kbd "C-c ,v") 'rspec-verify)
-               (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
-               (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target))))
+(add-hook 'rails-minor-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c ,v") 'rspec-verify)
+            (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
+            (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target)))
 
 ;; This hook makes any abbreviation that are defined in
 ;; rspec-mode-abbrev-table available in rSpec buffers
@@ -332,10 +298,10 @@ as the value of the symbol, and the hook as the function definition."
              t)))
      old)))
 
+;; Setup better rspec output output
+(require 'mode-compile)
+(add-to-list 'compilation-error-regexp-alist '("\\(.*?\\)\\([0-9A-Za-z_./\:-]+\\.rb\\):\\([0-9]+\\)" 2 3))
+(add-to-list 'mode-compile-modes-alist '(rspec-mode . (respec-compile kill-compilation)))
 
-(add-to-list 'compilation-error-regexp-alist-alist 
-	     '(rspec "\\([0-9A-Za-z_./\:-]+\\.rb\\):\\([0-9]+\\)" 1 2))
-(add-to-list 'compilation-error-regexp-alist 'rspec)
 
 (provide 'rspec-mode)
-;;; rspec-mode.el ends here
