@@ -11,5 +11,6 @@
   (message "newline-indent function executed"))
 
 (add-hook 'java-mode-hook 'apache-jakarta-mode)
-
+(java-mode-indent-annotations-setup)
 (load-library "junit")
+

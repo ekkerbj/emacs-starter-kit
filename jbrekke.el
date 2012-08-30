@@ -63,6 +63,7 @@
 (add-to-list 'compilation-error-regexp-alist 'mvn-warning)
 
 ;; Java Section
+(require 'java-mode-indent-annotations)
 (defun apache-jakarta-mode ()
   "The Java mode specialization for Apache Jakarta projects."
   (if (not (assoc "apache-jakarta" c-style-alist))
@@ -70,6 +71,7 @@
       (c-add-style "apache-jakarta" '("java" (indent-tabs-mode . nil))))
 
   (c-set-style "apache-jakarta")
+  (java-mode-indent-annotations-setup)
   (c-set-offset 'substatement-open 0 nil)
   (setq mode-name "Apache Jakarta")
   (define-key c-mode-base-map "\C-m" 'newline-and-indent)
@@ -77,6 +79,8 @@
 
 (add-hook 'java-mode-hook 'apache-jakarta-mode)
 (load-library "junit")
+
+(load-file (concat dotfiles-dir "/vendor/epresent.el"))
 
 ;; save the session on exit
 (desktop-save-mode 0)
