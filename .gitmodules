@@ -1,0 +1,3 @@
+[submodule "vendor/groovy"]
+	path = vendor/groovy
+	url = https://github.com/russel/Emacs-Groovy-Mode.git
