@@ -1,4 +1,5 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/groovy"))
 
 ;; Defalt shell
 (setq explicit-shell-file-name "/bin/zsh")
@@ -7,8 +8,6 @@
 (prefer-coding-system 'utf-8)
 
 (require 'line-num)
-
-(server-start)
 
 ;; save the session on exit
 (desktop-save-mode 1)
@@ -123,6 +122,9 @@
 
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+
+;; dot mode
+(load-file (concat dotfiles-dir "/vendor/graphviz-dot-mode.el"))
 
 ;; Ruby Associations
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
