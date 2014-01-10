@@ -61,16 +61,11 @@
 (if (file-exists-p user-specific-config) (load user-specific-config))
 
 ;; Benchmarking
-(message "My .emacs loaded in %ds"
-         (destructuring-bind (hi lo ms) (current-time)
-           (- (+ hi lo) (+ (first *emacs-load-start*) (second
-                                                       *emacs-load-start*)))))
+;(message "My .emacs loaded in %ds"
+;         (destructuring-bind (hi lo ms) (current-time)
+;           (- (+ hi lo) (+ (first *emacs-load-start*) (second
+;                                                       *emacs-load-start*)))))
 
 
 (provide 'init)
-;;; init.el ends here
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
+

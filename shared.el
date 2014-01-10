@@ -24,6 +24,11 @@
 (define-key ctl-x-map "R" 'resume)
 (define-key ctl-x-map "K" 'wipe)
 
+;; Auto-Complete
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/auto-complete"))
+(require 'auto-complete-config)
+(ac-config-default)
+
 ;; Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
 (require 'color-theme)
